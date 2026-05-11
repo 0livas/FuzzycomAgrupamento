@@ -34,6 +34,16 @@ def dividir_treino_teste(X, y, tamanho_teste: float = 0.2, random_state: int = 4
     return X_train, X_test, y_train, y_test
 
 
+def preencher_valores_faltantes(X_train, X_test):
+    # Preenche valores faltantes usando medias do conjunto de treino.
+    medias_treino = X_train.mean()
+
+    X_train_preenchido = X_train.fillna(medias_treino)
+    X_test_preenchido = X_test.fillna(medias_treino)
+
+    return X_train_preenchido, X_test_preenchido
+
+
 def normalizar_dados(X_train, X_test):
     # Normaliza os dados usando StandardScaler.
 
@@ -54,6 +64,7 @@ def preparar_dados(caminho_csv: str, coluna_classe: str = "classe"):
     nomes_atributos = X.columns.tolist()
 
     X_train, X_test, y_train, y_test = dividir_treino_teste(X, y)
+    X_train, X_test = preencher_valores_faltantes(X_train, X_test)
 
     X_train_norm, X_test_norm, scaler = normalizar_dados(X_train, X_test)
 
