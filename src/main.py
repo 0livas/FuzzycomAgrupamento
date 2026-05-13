@@ -13,6 +13,7 @@ from evaluation import (
 )
 from fuzzy_system import criar_sistema_fuzzy, prever_com_sistema
 from preprocessing import preparar_dados
+from visualization import gerar_graficos
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -210,6 +211,9 @@ def main():
         y_test=y_test,
         y_pred=y_pred,
     )
+
+    # Gerar gráficos: matriz de confusão, distribuição de classes e PCA dos clusters
+    gerar_graficos(output_dir=OUTPUT_DIR, dataset_csv=str(DATASET_PATH), n_clusters=4)
 
     imprimir_titulo("EXECUCAO FINALIZADA")
 
